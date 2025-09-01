@@ -40,6 +40,10 @@ func resourceNodeV1() *schema.Resource {
 				Type:     schema.TypeBool,
 				Optional: true,
 			},
+			"automated_clean": {
+				Type:     schema.TypeBool,
+				Optional: true,
+			},
 			"conductor_group": {
 				Type:     schema.TypeString,
 				Optional: true,
@@ -666,6 +670,7 @@ func propertiesMerge(d *schema.ResourceData, key string) map[string]any {
 // TODO: Is there a better way to do this? Annotations?
 func schemaToCreateOpts(d *schema.ResourceData) *nodes.CreateOpts {
 	properties := propertiesMerge(d, "root_device")
+	auto_clean := d.Get("automated_clean").(bool)
 	return &nodes.CreateOpts{
 		BootInterface:       d.Get("boot_interface").(string),
 		ConductorGroup:      d.Get("conductor_group").(string),
@@ -686,6 +691,7 @@ func schemaToCreateOpts(d *schema.ResourceData) *nodes.CreateOpts {
 		ResourceClass:       d.Get("resource_class").(string),
 		StorageInterface:    d.Get("storage_interface").(string),
 		VendorInterface:     d.Get("vendor_interface").(string),
+		AutomatedClean:      &auto_clean,
 	}
 }
 
