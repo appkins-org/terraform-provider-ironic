@@ -158,6 +158,7 @@ func testAccNodeResource(extraValue string) string {
 			driver = "fake-hardware"
 
 			boot_interface = "pxe"
+			automated_clean = true
 			deploy_interface = "fake"
 			inspect_interface = "fake"
 			management_interface = "fake"
